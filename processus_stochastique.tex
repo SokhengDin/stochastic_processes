@@ -1,0 +1,501 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath,amssymb}
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{tcolorbox}
+
+\tcbuselibrary{breakable}
+
+\geometry{left=2cm, right=2cm, top=2cm, bottom=2cm}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{ENSIIE -- TD}
+\fancyhead[C]{Mathématiques Appliquées}
+\fancyhead[R]{Septembre 2025}
+\fancyfoot[C]{\thepage}
+
+\tcbset{
+    solutionstyle/.style={
+        colback=white,
+        colframe=green!50!black,
+        colbacktitle=green!20,
+        coltitle=black,
+        fonttitle=\bfseries,
+        title=Solution,
+        boxrule=0.8pt,
+        arc=2pt,
+        top=4pt,
+        bottom=4pt,
+        left=6pt,
+        right=6pt,
+        breakable
+    }
+}
+
+\newtcolorbox{solutionbox}[1][]{solutionstyle,#1}
+
+
+\newcounter{solcounter}
+\newenvironment{solenum}{
+  \setcounter{solcounter}{0}
+  \begin{list}{\textbf{\arabic{solcounter}.}}{
+      \usecounter{solcounter}
+      \leftmargin=1.2cm
+      \labelsep=0.35cm
+      \labelwidth=0.8cm
+  }
+}{
+  \end{list}
+}
+
+
+
+\title{\vspace{-1cm}TD: Martingales and Markov Chains}
+\author{Enseignant: Abass Sagna \\ Etudiant: Din Sokheng}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\section*{Exercise 1}
+We toss twice a coin and record the successive sides that appear. Let $\Omega=\left\{ HH, HT, TH, TT\right\}$ (where $H\equiv \text{HEAD}$ and $T\equiv \text{TAIL}$) be the sample sample space. Let $X_{k}$ be the random variable which counts the number of Heads that appears after the $k$ first tosses and let $\mathcal{G}_{1}$ and $\mathcal{G}_{2}$ be the $\sigma$-algebras on $\Omega$ defined by 
+
+	\begin{equation*}
+		\mathcal{G}_{1}=\left\{ \emptyset , \Omega, \left\{HT, HH \right\}, \left\{ TH, TT \right\}\right\} \qquad \text{and} \qquad \mathcal{G}_{2}=\left\{ \emptyset , \Omega, \left\{TH, HH \right\}, \left\{ HT, TT \right\}\right\}
+	\end{equation*}
+	
+	\begin{enumerate}
+		\item What is the information contained in $\mathcal{G}_{1}$ and $\mathcal{G}_{2}$ ?
+		\item Are the random variable $X_{1}$ and $X_{2}$ is $\mathcal{G}_{1}$-measurable ?
+		\item Are the random variable $X_{1}$ and $X_{2}$ is $\mathcal{G}_{2}$-measurable ?
+		\item Determine the $\sigma$-algebra $\varepsilon= \mathcal{G}_{1} \cap \mathcal{G}_{2}$ and $\mathcal{H}=\sigma\left( \mathcal{G}_{1} \cup \mathcal{G}_{2} \right)$. What is the informations they contain?
+			\begin{enumerate}[(a).]
+				\item Are the random variable $X_{1}$ and $X_{2}$ is $\mathcal{H}$-measurable?
+				\item Are the random variable $X_{1}$ and $X_{2}$ is $\varepsilon$-measurable?
+			\end{enumerate}
+		\item Determine $\sigma(X_{1}), \sigma(X_{2})$ and $\sigma(X_{1},X_{2})$.
+	\end{enumerate}
+
+
+\begin{solutionbox}
+\begin{solenum}
+
+\item Information contained in $\mathcal{G}_1$ and $\mathcal{G}_2$. \\[0.2em]
+We have
+$$
+\mathcal{G}_{1}=\left\{ \emptyset , \Omega, \{HT, HH\}, \{TH, TT\}\right\}, 
+\qquad 
+\mathcal{G}_{2}=\left\{ \emptyset , \Omega, \{TH, HH\}, \{HT, TT\}\right\}.
+$$
+
+
+\begin{itemize}
+  \item For $\mathcal{G}_1$:
+  $$
+    \{HT,HH\} = \{\omega : \text{first toss is }H\},\qquad
+    \{TH,TT\} = \{\omega : \text{first toss is }T\}.
+  $$
+  Thus, $\mathcal{G}_1$ contains \emph{exactly} the information of the \textbf{first toss}: we know whether the first toss is Head or Tail, but nothing about the second toss.
+
+  \item For $\mathcal{G}_2$:
+  $$
+    \{TH,HH\} = \{\omega : \text{second toss is }H\},\qquad
+    \{HT,TT\} = \{\omega : \text{second toss is }T\}.
+  $$
+  Thus, $\mathcal{G}_2$ contains \emph{exactly} the information of the \textbf{second toss}: we know whether the second toss is Head or Tail, but not the first.
+\end{itemize}
+
+\item Are $X_1$ and $X_2$ $\mathcal{G}_1$-measurable? \\[0.2em]
+Recall: a random variable $X$ is $\mathcal{G}_1$-measurable iff for every Borel set $B\subset\mathbb{R}$,
+$$
+X^{-1}(B) \in \mathcal{G}_1.
+$$
+\begin{itemize}
+  \item For $X_1$:
+  \begin{align*}
+  	X_{1}^{-1}(\{0\}) &= \{\omega \in{\Omega}, X_{1}(\omega)=0 \}=\{ TH, TT \} \in{\mathcal{G}_{1}}  \\
+  	X_{1}^{-1}(\{1\}) &= \{\omega \in{\Omega}, X_{1}(\omega)=1 \}=\{ HT, HH \} \in{\mathcal{G}_{1}}\\
+  \end{align*}
+  Thus all level sets of $X_1$ belong to $\mathcal{G}_1$, so $X_1$ is $\mathcal{G}_1$-measurable.
+  
+  \item For $X_2$:
+  \begin{align*}
+  	X_{2}^{-1}(\{0\}) &= \{\omega \in{\Omega}, X_{1}(\omega)=0 \}=\{ TT \}   \\
+  	X_{2}^{-1}(\{1\}) &= \{\omega \in{\Omega}, X_{1}(\omega)=1 \}=\{ HT, TH \} \\
+  	X_{2}^{-1}(\{2\}) &= \{\omega \in{\Omega}, X_{1}(\omega)=1 \}=\{ HH \}
+  \end{align*}
+  But $\{HH\}\notin \mathcal{G}_1$ (the only nontrivial sets are $\{HH,HT\}$ and $\{TH,TT\}$).
+  Hence $X_2$ is \emph{not} $\mathcal{G}_1$-measurable.
+\end{itemize}
+
+\item Are $X_1$ and $X_2$ $\mathcal{G}_3$-measurable? \\[0.2em]
+	We do the same with $G_{2}$
+	\begin{itemize}
+		\item For $X_{1}$:
+		\begin{equation*}
+			X_{1}^{-1}(\{ 1 \}) = \{ HH, HT \}
+		\end{equation*}
+	\end{itemize}
+\end{solenum}
+\end{solutionbox}
+
+
+
+
+\section*{Exercise 2}
+We throw a coin three times (the tosses are independent) and record the faces that appear. We denote $\Omega=\left\{ HHH, HHT, HTH, THH, TTH, THT, HTT, TTT\right\}$ (where $H\equiv \text{HEAD}$ and $T\equiv \text{TAIL}$) all possible outcomes of the random experiment. Let
+	\begin{itemize}
+		\item $X_{k}$ denotes the random variables that counts the number of Heads obtained at the $k$ first tosses.
+		\item $Y_{k}$ denotes the random variables that counts the number of Heads obtained only at the $k$-th toss and let $\mathcal{G}_{1}, \mathcal{G}_{2}, \text{and} \hspace{0.1cm} \mathcal{G}_{3}$ be the $\sigma$-algebras defined by
+			\begin{align*}
+				\mathcal{G}_{1} &= \left\{ \emptyset, \Omega, 
+				    \left\{ HHT, HHH, HTH, HTT \right\}, 
+				    \left\{ TTH, TTT, THT, THH \right\} 
+				\right\} \\
+				\mathcal{G}_{2} &= \left\{ \emptyset, \Omega, 
+				    \left\{ THH, HHT, THT, HHH \right\}, 
+				    \left\{ HTT, HHH, HTH, HTT \right\} 
+				\right\} \\
+				\mathcal{G}_{3} &= \left\{ \emptyset, \Omega, 
+				    \left\{ HTH, THH, THH, HHH \right\}, 
+				    \left\{ THT, HTT, TTT, HHT \right\} 
+				\right\}
+			\end{align*}
+	\end{itemize}
+	Set $\mathcal{F}_{1}=\mathcal{G}_{1},\mathcal{F}_{2}=\sigma(\mathcal{G}_{1} \cup \mathcal{G}_{2})$ and $\mathcal{F}_{3}= \sigma(\mathcal{G}_{1} \cup \mathcal{G}_{2} \cup \mathcal{G}_{3})$
+	\begin{enumerate}
+		\item What is the informations contained on the sigma-algebra $\mathcal{G}_{1}, \mathcal{G}_{2}, \mathcal{G}_{3}$.
+		\item Are the random variables $Y_{k}, \mathcal{G}_{k}$-measurable 
+		\item Are the random variables $X_{k}, \mathcal{G}_{k}$-measurable
+		\item Are the random variables $Y_{k},\mathcal{F}_{k}$-measurable
+		\item Determine explicitly $\sigma(Y_{1}),\sigma(Y_{2}),\sigma(Y_{3})$.
+		\item Are the random variables $X_{k},\mathcal{F}_{k}$-measurable
+		\item Let $p$ be the probability of having Heads at every toss of the coin.
+		\begin{enumerate}[(a)]
+			\item Compute $\mathbb{E}(X_{3}|X_{1})$
+			\item Deduce the value of $\mathbb{E}(X_{3})$
+			\item Compute the $\mathbb{E}(X_{1}|X_{2})$	
+		\end{enumerate}
+	\end{enumerate}
+	
+\section*{Exercise 3} (Application of the course)
+\begin{enumerate}[1.]
+	\item Let $X$ be a random variable defined on $\Omega$ and taking value in $(E, \mathcal{E})$ and let $f$ be a measurable function from $(E, \mathcal{E})$ to $\mathbb{R}$. Do you have $\sigma(f(X)) \subset \sigma(X)$ or $\sigma(X) \subset \sigma(f(X))$ ?
+	\item Let $\mathcal{F}$ and $\mathcal{G}$ be two $\sigma$-algebra, Is $\mathcal{F} \cap \mathcal{G}$ always $\sigma$-algebra? Is $\mathcal{F} \cup \mathcal{G}$ always $\sigma$-algebra ?
+	\item Let $X$ be a integrable random variable defined on $(\Omega, \mathcal{F}, \mathbb{P})$.
+		\begin{enumerate}[(a)]
+			\item What is $\mathbb{E}(X|\mathcal{F})$ if $\mathcal{F}=\left\{ \emptyset, \Omega \right\}$ ? if $\mathcal{F} = \mathcal{P}(\Omega)$ ?
+			\item What is $\mathbb{E}(X|\mathcal{F})$ ? if $X$ is independent from $\mathcal{F}$.
+		\end{enumerate}
+\end{enumerate}
+
+\section*{Exercise 4}
+We flip three times a coin which probability of having Heads is $p\in ]0,1[$ and we record the successive sides that appear. 
+
+\begin{enumerate}[1.]
+	\item Determine the sample space $\Omega$.
+	\item We denote $X_{k}(\omega)$ for $k=1,2,3,...$ the random variable that counts the number of Tails appeared after the $k$ first toss when we observe $\omega \in \Omega$. 
+	\item Determine the $\sigma$-algebra $\mathscr{P}_{1}=\sigma(X_{1})$ and $\mathscr{P}_{2}=\sigma(X_{2})$ and then $\mathscr{P}_{1,2}=\sigma(X_{1},X_{2})$.
+	\item Are the following inclusions true ? $\mathscr{P}_{1} \subset \mathscr{P}_{2}$; $\mathscr{P}_{1} \subset \mathscr{P}_{1,2}$.
+	\item Determine $\mathbb{E}[X_{3}|\mathscr{F}_{1}] $ and $\mathbb{E}\mathbb[\mathbb{E}[X_{3}|\mathscr{P}_{2}]|\mathscr{P}_{1}]$ ?
+	\item Does one have the equality $$ \mathbb{E}[X_{3}|\mathscr{P}_{1}] = \mathbb{E}\mathbb[\mathbb{E}[X_{3}|\mathscr{P}_{2}]|\mathscr{P}_{1}] $$
+	\item Does one have the equality $$ \mathbb{E}[X_{3}|\mathscr{P}_{1}] = \mathbb{E}\mathbb[\mathbb{E}[X_{3}|\mathscr{P}_{1,2}]|\mathscr{P}_{1}] $$
+\end{enumerate}
+
+\section*{Exercise 5}
+Let $X$ be a random variable defined on $(\Omega, \mathcal{F})$ and let $\mathbb{P}$ be a probability on $(\Omega, \mathcal{F})$ such that $\mathbb{E}(X^{2}) < +\infty$. Let $\mathscr{P}$ be a sub $\sigma$-algebra of $\mathscr{P}$. Set
+	
+	$$ Var(X|\mathscr{P}) = \mathbb{E} \left[ (X-\mathbb{E}(X|\mathscr{P}))^{2} | \mathscr{P} \right] $$
+	Starting from $$
+		X-\mathbb{E} = X-\mathbb{E}(X|\mathscr{P})+\mathbb{E}(X|\mathscr{P}) - \mathbb{E}(X)
+	 $$
+	
+	\noindent
+	Show that 
+	\begin{equation*}
+		Var(X) = \mathbb{E}\left( Var(X|\mathscr{P}) \right) + Var(X\mathbb{E}(X|\mathscr{P})).
+	\end{equation*}
+
+
+\section*{Exercise 6}
+We toss $n$ times a coin and consider a gambling which consists on scoring 1 point when Heads appears or losing 2 points otherwise. The probability of having Heads with the coin is $p$. Let $Y_{i}$ be the random variable representing the scored point on the $i$-th toss only and let $X_{n}$ be the cumulated scored point after the $n$ first tosses with $X_{0}$ Let $(\mathcal{F}_{n})_{n\geq{0}}$ with $\mathcal{F}_{n}=\sigma(Y_{1}, \cdots, Y_{n})$ be the natural filtration of the process $(Y_{n})_{n \geq{1}}$.
+	
+	\begin{enumerate}[1.]
+		\item Write $X_{n}$ as a function of $Y_{1}, \cdots , Y_{n}$.
+		\item Determine the value of $p$ which makes the process $(X_{n})_{n \geq{0}}$ a $\mathcal{F}_{n}$ martingale.
+		\item Determine the value of $p$ which makes the process $(X_{n})_{n \geq{0}}$ a $\mathcal{F}_{n}$ sur-martingale.
+		\item Determine the value of $p$ which makes the process $(X_{n})_{n \geq{0}}$ a $\mathcal{F}_{n}$ sub-martingale.
+
+	\end{enumerate}
+
+\section*{Exercise 7}
+Let $(Y_{n})_{n \geq{1}}$ be a sequence of independent random variables with the same distribution $\mathcal{N}(0,\,\sigma^{2})$ where $\sigma > 0$. Set $\mathscr{F}_{n}=\sigma(Y_{1}, \cdots, Y_{n})$ and $X_{n} = Y_{1} + \cdots + Y_{n}$.
+
+	\begin{enumerate}[1.]
+		\item Show that 
+			\begin{equation*}
+				\mathbb{E}\left[ e^{uY_{1}}\right] = e^{\frac{u^{2}\sigma^{2}}{2}}
+			\end{equation*}
+		\item Let $Z_{n}^{u}=\exp\left( uX_{n} - n\frac{u^{2}\sigma^{2}}{2} \right)$. Show that , for any $u \in \mathbb{R}, (Z_{n}^{u})_{n \geq{1}}$ is an $\mathscr{F}$-martingale.
+		\item Show that for any $u\in{\mathbb{R}}, (Z_{n}^{u})_{n \geq{1}}$ converges almost surely toward a random variable $Z_{\infty}^{u}$ which is finite.
+	\end{enumerate}
+
+\section*{Exercise 8}
+Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space and let $(X_{k})_{k=0,\ldots,n}$ be a sequence of random variables. Let $(\mathcal{G}_k)_{k=0,\ldots,n}$ be the filtration generated by the process $(Y_k)_{k=1,\ldots,n}$ with $\mathcal{G}_{0}=\{\emptyset, \Omega\}$ and let $\bar{\mathbb{P}}$ be the new probability defined as 
+	\begin{equation*}
+    	d\bar{\mathbb{P}} = Z_{n}d\mathbb{P}, \qquad \text{with} \qquad Z_{n}=\exp\left(\sigma(Y_{1}+\cdots+Y_{n})-\frac{n\sigma^{2}}{2}\right)
+	\end{equation*}
+	\begin{enumerate}
+	    \item Show that the process $(Z_{k})_{k=0,...,n}$ defined for every $k \in{0,...,n}$ by $Z_{k}=\mathbb{E}_{\mathbb{P}}(Z_{n}|\mathcal{G}_{k})$ is a martingale.
+	    \item Determine $\mathbb{E}_{\mathbb{P}}(X_{k+1}|\mathcal{G}_{k})$ for all $k \in \left\{ 0, ..., n-1\right\}$. Deduce the value oof $\mu$ such that $(X_{k})_{k=0,...,n}$ is a martingale.
+	    \item Show that \begin{equation*}
+	    		\mathbb{E}_{\mathbb{P}} = x_{0}e^{\mu}
+	    	\end{equation*}
+	    \item We consider the process $(\bar{X}_{k})_{k=0,..,n}$ defined for every $k\in \left\{0,...,n\right\}$ by $\bar{X}_{k}=e^{-\mu k /n}X_{k}$. Show that $(\bar{X}_{k})_{k=0,...,n}$ is $\mathbb{P}$-martingale.
+		\item Determine the valuer of $\sigma$ such that $(\bar{X}_{k})_{k=0,...,n}$ is $\bar{\mathbb{P}}$-martingale.
+	    
+    \end{enumerate}
+    
+\section*{Exercise 9}
+A stochastic process $(M_{n})_{n\geq{0}}$ to said to be with independent increments if for any n, the  random variable	 $M_{n+1}-M_{n}$ is independent from $\mathscr{F}=\sigma(M_{0}, ..., M_{n}$. A real random variable $M$ is square integrable if $\mathbb{E}(M^{2})$ is this $\mathbb{E}(M^{2}) < +\infty $.
+	\begin{enumerate}
+		\item Let $(M_{n})_{n \geq 0}$ be a square integrable with independent increments.
+				\begin{enumerate}[(a)]
+					\item Show that $\mathbb{E}[M_{n}]=\mathbb{E}[M_{k}]$ for every $n \leq k$ and verify that $cov(M_{n},M_{k}) = Var(M_{n})$. We recall that for a given random variables $X$ and $Y$ $cov(X,Y)=E[XY]-E[X]E[Y]$.
+					\item We set $\sigma^{2}_{0}=Var(M_{0})$ and for $n \geq{0}, \sigma_{k}^{2}=Var(M_{k}-M_{k-1})$	. Show that for every $n \geq 0$ $Var(M_{n})=\sum_{k=0}^{n}\sigma_{k}^{2}$.
+				\end{enumerate}
+		\item Let $(\left\langle M_{n} \right\rangle)_{n \geq{0}}$ be the compensator of the sub-martingale $(M_{n}^{2})_{n \geq 0}$, defined by $\left\langle M \right\rangle_{0}=0$ and for any $n \geq 1$ by $\left\langle M \right\rangle_{n}=\left\langle M_{n} \right\rangle=\left\langle M_{n-1}\right\rangle + \mathbb{E}[M_{n}^{2}-M_{n-1}^{2}|\mathscr{F}_{n-1}]$
+			\begin{enumerate}[a]
+				\item Show that \begin{equation*}
+					\mathbb{E}[M_{n}^{2}-M_{n-1}^{2}|\mathscr{F}_{n-1}] = \mathbb{E}[(M_{n}-M_{n-1})^{2}|\mathscr{F}_{n-1}]
+				\end{equation*}
+				\item Determine $\left\langle M \right\rangle_{n}$.
+				\item Deduce that the process defined for every $n \geq 1$ by $M_{n}^{2}-\sum_{k=1}^{n}\sigma_{k}^{2}$ is an $\mathscr{F}_{n}$-martingale.
+			\end{enumerate}
+		\item Now, let $(M_{n})_{n \geq 0}$ be a gaussian process, means: for any $n \geq 0$ the vector $(M_{0},\cdots, M_{n})$ is a gaussian vector. Suppose that $(M_{n})_{n \geq 0}$ is a martingale.
+			\begin{enumerate}[(a)]
+				\item Show that for any $k=0,\dots, n$,we have $\mathbb{E}(M_{k}(M_{n+1}-M_{n}))=0$.
+				\item Deduce that $(M_{n})_{n \geq 0}$ is with independent increments.
+				\item Show that for any fixed $\theta \in{\mathbb{R}}$ the process
+				\begin{equation*}
+					Z_{n}^{\theta} = e^{\theta M_{n}-\theta^{2}\left\langle M_{n} \right\rangle/2}
+				\end{equation*}
+				is martingale. Is this process converge almost surely ?
+			\end{enumerate}
+	\end{enumerate}
+	
+\section*{Exercise 10}
+Let $(S_{n})_{n \geq 0}$ be a random walk on $\mathbb{Z}: S_{0}=0, S_{n}=U_{1}+\cdots+U_{n}$ where the $U_{i}\in{ \left\{ x,y\right\} }$ are independent with the same distribution means, $0 < \mathbb{P}(U_{i}=x)=p < 1, \mathbb{P}(U_{i}=-y)=1-p$, for any $i\in{\left\{ 1,\cdots, n \right\}}$. We define $(\mathscr{F}_{n})_{n \geq 0}$ as the filtration generated by $(S_{n})_{n \geq 0}: \mathscr{F}_{n}=\sigma(S_{0},\cdots,S_{n})$ for every $n \geq 1$, with $\mathcal{F}_{0}=\left\{ \emptyset, \Omega \right\}$.
+	\begin{enumerate}[I]
+		\item We set $x=1,y=2$. Determine the value of $p$ such that $(S_{n})_{n \geq 1}$ is sub-martingale.
+			\begin{enumerate}[1]
+				\item Let $\mu = \mathbb{E}(U_{1})$ and let $X_{n}=S_{n}-n\mu$ for every $n \geq 0$.
+				\begin{enumerate}[(a)]
+					\item Show that $(X_{n})_{n \geq 0}$ is a martingale.
+					\item Let $a > 0$ and let $\tau$ be a stopping time defined by
+					\begin{equation*}
+						\tau = \inf\left\{ n \geq 0, |X_{n}| > a \right\}
+					\end{equation*} 	
+					Show that for all $n \geq 0, \mathbb{E}(S_{n \wedge \tau})$
+					\item Deduce that $\mathbb{E}(S_{\tau})=\mu \mathbb{E}(\tau)$
+				\end{enumerate} 
+			\item We set $\sigma^{2}=Var(U_{1})$ and $Y_n=(S_{n}-n\mu)^{2}-n\sigma^{2}$ for all $n \geq 0$. Show that $(Y_{n})_{n \geq 0}$ is an $(\mathcal{F}_{n})_{n \geq 0}$-martingale.	
+			\end{enumerate} 
+		\item Suppose now $x=y=1$. 
+			\begin{enumerate} 
+				\item Let $Z_{n}=(q/p)^{S_{n}}$. Show that $(Z_{n})_{n \geq 0}$ is a positive martingale.
+				\item Show that \begin{equation*}
+					\mathbb{P}\left( \sup_{n\ge 0} Z_n \ge (q/p)^k \right) \le  \left(\frac{p}{q}\right)^k.
+				\end{equation*}
+				\item Deduce that \begin{equation*}
+					\mathbb{P}\left( \sup_{n\ge 0} S_n \ge k \right) \le \left(\frac{p}{q}\right)^k.
+				\end{equation*}
+        	\end{enumerate}
+	\end{enumerate}
+	
+\section*{Exercise 11}
+We consider a binomial model with $N$ period on an underlying asset $S$ with initial value $S_{0}=s_{0} >0 $ a constant value. We suppose that any time $n \in \left\{ 1,\cdots,N \right\}$, the value $S_{n}$ of the asset may go up or go down and the asset take upward value $uS_{n-1}$ and the downward value $dS_{n-1}$, with  $0 < d < r+1 < u$, where $r$ is the interest and where $S_{n-1}$ is the value asset at time $n-1$. We suppose we may write down for every $n \geq 1$.
+	\begin{equation*}
+		S_{n}=S_{n-1}Y_{n}
+	\end{equation*}
+	where $(Y_{n})_{n \geq 1}$ is independent and identical distributed sequence of random variable with 
+		\begin{equation*}
+			Y_n = 
+			\begin{cases}
+			u, & \text{with probability } \tilde{p},\\[4pt]
+			d, & \text{with probability } \tilde{q} = 1 - \tilde{p},
+			\end{cases}
+		\end{equation*}
+	with $\tilde{p}=\frac{1+r-d}{u-d}$. We define the updated value $(\tilde(S_{n})_{n \geq 0})$ of the asset process $(S_{n})_{n \geq 0}$ by
+		\begin{equation*}
+			\bar{S}_{n}=\frac{1}{(1+r)^{n}}S_{n}, \qquad \forall n \geq 0
+		\end{equation*}
+	and denote by $(\mathcal{F}_{n})_{n \geq 0}$ the filtration generated by $(Y_{n})_{n\geq 1}$ with $\mathcal{F}_{0}=\left\{ \emptyset, \Omega \right\}$
+	\begin{enumerate}
+		\item Show that $(\bar{S}_{n})_{n \geq 0}$ is a martingale will response to $(\mathcal{F}_n)_{n \geq 0}$.
+		\item We define the process $(V_{n})_{n \geq 0}$ by \begin{equation*}
+			V_{n} = \Delta_{n}S_{n} + (1+r)(V_{n+1}-\Delta_{n}S_{n-1})
+		\end{equation*}
+		where $(\Delta_{n})_{n \geq 0}$ is predictable with respect to $(\mathcal{F}_{n})_{n \geq 0}$. Let \begin{equation*}
+			\bar{V}_{n}=\frac{1}{(1+r)^{n}}V_{n}, \qquad \forall n \geq 0
+		\end{equation*}
+		\begin{enumerate}[a]
+			\item Show that $(\bar{V})_{n \geq 0}$ is an $\mathcal{F}_{n}$-martingale.
+			\item We suppose that $V_{N}=\max({K-S_{N}}, 0)$ for $K >0$ and $N \geq 1 $. Show that \begin{equation*}
+				V_{0} = \frac{1}{(1+r)^{N}}\mathbb{E}[\max(K-S_{N}, 0)]
+			\end{equation*}
+			\item Compute explicitly $V_{0}$ when $N=1$ and $dS_{0} < K < uS_{0}$.
+		\end{enumerate}
+	\end{enumerate}
+
+\section*{Exercise 12}
+We consider a gambling where we toss a coin and gain 2 points if Heads appears and loss 2 points when Tails appears. We denote by $p$ the probability that Head appears. Let's $X_{n}$ denotes our score at the $n$-th toss of the coin and let $(Y_{i})_{i \geq 1}$ be independent and identical distributed sequence of random variables such that
+
+	\begin{equation*}
+		Y_{i} = \begin{cases}
+			2, & \text{with probability } p, \\[4pt]
+			-2, &\text{with probability } 1-p
+		\end{cases}
+	\end{equation*}
+	\begin{enumerate}
+		\item Show that $(X_{n})_{n \geq 0}$ is a Markov chain and determine its transition matrix.
+		\item Compute the following quantities: $\mathbb{P}(X_{0}=0, X_{1}=2, X_{2}=4, X_{3}=6)$ and $\mathbb{P}(X_{0}=0, X_{1}=-2, X_{2}=0)$.
+	\end{enumerate}
+
+\section*{Exercise 13}
+Let $(X_{n})_{n \geq 0}$ be a Markov chain defined on $E=\left\{1, 2, 3, 4 \right\}$ with transition matrix
+	\begin{equation*}
+		P = \begin{pmatrix}
+			0 & 1 & 0 & 0 \\
+			1/2 & 0 & 1/4 & 1/4 \\
+			1/2 & 1/2 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\ 
+		\end{pmatrix}
+	\end{equation*}
+	\begin{enumerate}
+		\item Show that $P^{2}$ is a transition matrix
+		\item Let $j \in{E}$ and define the number of passage of the Markov Chain at the state $j$ by \begin{equation*}
+				N_j = \sum_{k=0}^{+\infty} \mathbf{1}_{\{X_k = j\}} \,
+			\end{equation*}
+			Compute $E_{i}(N_{1})$ for all $i \in{E}$
+		\item Let $\tau_{3}$ be the shopping time (the first passage time at state 3) defined by $\tau_{3}=\inf \left\{ n \geq 0: X_{n}=3 \right\}$. Compute $\mathbb{P}_{i}(\tau_{3} < +\infty)$ for any $i \in E$
+ 		\item Show that the Markov Chain is irreducible and recurrent.
+ 		\item Determine the invariante probability of the Markov Chain.
+ 		\item Deduce for any $i \in{E}$, the almost sure limit of $\frac{1}{n}\sum_{k=0}^{n-1} \mathbb{1}_{ \left\{ X_{k}=i \right\} }$.
+ 		\item Compute the almost sure limit of $\frac{1}{n}\sum_{k=0}^{n-1}X_{k}^{2}$.
+	\end{enumerate}
+
+
+\section*{Exercise 14}
+A mobile moves randomly on $\mathbb{Z}$ following Markov Chain with transition matrix $P$ with components \begin{equation*}
+		P(i,j) = \begin{cases}
+			p, &\text{if }  j=i+1 \\[4pt] 
+			1-p, &\text{if } j=i-1 \\[4pt]
+			0, &\text{otherwise}
+		\end{cases}
+	\end{equation*}
+	with $0 < p < 1$.
+	\begin{enumerate}
+		\item Let $(Z_{n})_{\geq 1}$ be an independent and identical distributed sequence of random variables such that $\mathbb{P}(Z_{n}=1)=p, \mathbb{P}(Z_{n}=-1)=1-p$. We set $X_{0}=0$ and $X_{n}=Z_{1}+\cdots+Z_{n}$. Show that $(X_{n})_{n \geq 0})$ is a Markov Chain starting at $0$ with transition matrix $P$.
+		\item What is the limit of $lim_{n \to +\infty} \frac{1}{n} X_n$ ? If $p \neq 1/2$, the chain is recurrent or transient ?
+		\item Set $Y_{i}=\frac{1}{2}(Z_{i}+1)$. What is the distributions of $Y_{i}$ and $T_{n}=\frac{1}{2}(X_{n}+n)$. Compute $P^{(n)}(0,0)=\mathbb{P}(X_n=0)$ when $n$ is even and when it is odd.
+		\item If $p=\frac{1}{2}$, show that the Markov Chain is recurrent. Is it positive recurrent ?
+		\item We suppose that $p=\frac{1}{2}$, and for $a, b >0$ we define the stopping times $\tau_{-a}$ and $\tau_{b}$ by \begin{equation*}
+			\tau_{-a} = \inf{\left\{ n \geq 0, X_{n} = -a \right\}} \quad \text{and} \quad \tau_{b} = \inf{\left\{ \tau_{b} \geq 0, X_{n}= b \right\}}
+		\end{equation*}
+		and set $\tau=\tau_{-a} \wedge \tau_{b}$.
+		\begin{enumerate}[a]
+			\item Show that the process defined by $S_{n}=X_{n}^{2}-n$, for all $n \geq 0$ is martingale.
+			\item Show that $\mathbb{E}(S_{\tau})=0$ and deduce the values of $\mathbb{P}(\tau_{-a} < \tau_{b}$ and $\mathbb{P}(\tau_{-a} > \tau_{b}$.
+		\end{enumerate}
+	\end{enumerate}
+	
+	
+\section*{Exercise 15}
+Let $(X_{n})_{n \geq 0}$ be a Markov Chain with state space $E=\left\{ 1, 2,3, 4 \right\}$ and transition matrix \begin{equation*}
+		P=\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			1/4 & 1/4 & 1/4 & 1/4 \\
+			0 & 1/4 & 1/2 & 1/4 \\
+			1/4 & 1/2 & 1/4 & 0
+		\end{pmatrix}
+	\end{equation*}
+	\begin{enumerate}
+		\item Calculate the probability that, starting from $i \in{E}$, the hitting time of $A=\left\{ 2, 3\right\}$ is finite: $\mathbb{P}_{i}(\tau_{A} < +\infty)$ for all $i \in{E}$ where \begin{equation*}
+			\tau_{A} = \inf{\left\{ =n \geq 0, X_{n} \in{A} \right\}}
+		\end{equation*}
+		\item Calculate the expectation of the time until reaching $A$ starting from $i \in {E}: \mathbb{E}_{i}(\tau_{A})$
+		\item Compute $\mathbb{P}_{i}(\tau_{1} < \tau_{2})$ for $i \in{E}$.
+	\end{enumerate}
+	
+	
+\section*{Exercise 16}
+Consider the total growth process $(X_{n})_{n \geq 0}$ defined by $X_{0}=0$ and for every $n \geq 1$ by \begin{equation*}
+	X_{n}= Y_{1}+\cdots+X_{n}
+	\end{equation*}
+	where $(Y_{n})_{n \geq 1}$ is independent and identical distributed sequence of the random variable valued in $\left\{ -d, e \right\}, d, e > 0$ satisfying for any $n \geq 1, \mathbb{P}(Y_{n}=-d)=q$ and $\mathbb{P}(Y_{n}=e)=p$ with $q=1-p$. Let $(\bar{X}_{n})_{n \geq 0}$ be a stochastic process define by $\bar{X}_{0}=0$ and for any $n \geq 1$, by
+		\begin{equation*}
+			\bar{X}_{n}=\bar{Y}_{1}+\cdots+\bar{Y}_{n} \quad \text{with} \quad \bar{Y}_{k}=\frac{1}{e+d	}(2Y_{k}+d-e), \quad k \geq n
+		\end{equation*}
+		Let $E$ be the set of values taken by $(\bar{X}_{n})_{n \geq 0}$ and let $-b, a \in{E}$ with $a, b > 0$. Define the stopping time $\tau$ by \begin{equation*}
+			\tau = \tau_{-b} \wedge \tau_{a} \quad \text{with } \tau_{l}=\inf{\left\{ k \geq 0, \bar{X}_{k}=l \right\}}, \quad \text{for} l\in{\left\{ -b, a\right\}}
+		\end{equation*}
+		\begin{enumerate}
+			\item Is the process $(\bar{X})_{n \geq 0}$ a martingale with respect to its natural filtration ? Justify your answer.
+			\item We set $A_{n}=\left\{ -b < \bar{X}_{n} < a \right\}$ for any $n \geq 0$. Prove that  \begin{equation*}
+				\mathbb{P}(\tau=+\infty) = \mathbb{P}\left( \bigcup_{n \geq 0} A_{n} \right) \leq \lim_{n\to +\infty} \mathbb{P}(A_{n}).
+			\end{equation*}
+			\item Use the Central Limit Theorem $1$ and the result $2$ to show that $\tau$ is finite  almost surely.
+			\item We define the process $(Z_{n})_{n \geq 0}$ by $Z_{n}=(q/p)^{\bar{X}_{n}}$, for every $n \geq 0$. Show that there exists a constant $C >0$ such that $ \sup_{n \ge 0}\mathbb{E}(|Z_{n\wedge \tau}|) < C $
+			\item Show that the process $(Z_{n})_{n \geq 0}$ is a martingale with respect to the natural filtration of the process $(\bar{X}_{n})_{n \geq 0}$ and that $\mathbb{E}(Z_{\tau})=1$
+			\item Show that \begin{equation*}
+				\mathbb{P}(\tau_{-b} < \tau_{a}) = \frac{1-(q/p)^{a}}{(q/p)^{-b}-(q/p)^{a}} \quad \text{and} \quad \mathbb{P}(\tau_{a} < \tau_{-b}) = \frac{(q/p)^{-b}-1}{(q/p)^{-b}-(q/p)^{a}}
+			\end{equation*}
+		\end{enumerate}
+
+\section*{Exercise 17}
+Let $(Z_{n})_{n \geq 1}$ be a sequence of independent random variables such that $\mathbb{P}(Z_{n}=1)=p, \mathbb{P}(Z_{n}=-1)=1-p$. Define the random walk $(X_{n})_{n \geq 0}$ by $X_{0}=x \in{\mathbb{Z}}$ and $X_{n}=Z_{1}+\cdots+Z_{n}$. Let $ a, b \in{\mathbb{Z}}$ be such that $a < x < b$ and let $\tau_{y}$ be the stopping time defined by $\tau_{y}=\inf \left\{ n \geq 0, X_{n} \geq y \right\}$, for $ y \in \mathbb{Z}$. 
+	\begin{equation}
+		\mathbb{P}_x(\tau_b < \tau_a)
+			=
+			\begin{cases}
+			\displaystyle 
+			\frac{\left( \frac{q}{p} \right)^{\,x-a} - 1}{\left( \frac{q}{p} \right)^{\,b-a} - 1},
+			& \text{if } p \neq q, \\[1.2em]
+			\displaystyle 
+			\frac{x-a}{b-a},
+			& \text{if } p = q .
+			\end{cases}
+	\end{equation}
+	\begin{enumerate}
+		\item We define $\phi(x, l)=\mathbb{P}_{x}(\tau_{l} < \tau_{0})$, for $0 < x < l \in{\mathbb{Z}}$. Show that $\mathbb{P}_{x}(\tau_{b} < \tau_{a})=\phi(x-a, b-a)$, for $a < x < b$. What are the values of $\phi(0,l)$ and $\phi(l,l)$ ?
+		\item Suppose that $a=0$ and $b=l$ and define $\delta(x)=\phi(x+1,l)-\phi(x,l)$ for $x \in{\mathbb{N}^{*}}$. 
+			\begin{enumerate}
+				\item Show that for all $x \in{\mathbb{N}^{*}}, p\delta(x)=q\delta(x-1)$.
+				\item Deduce that $\delta(x)=\left( \frac{q}{p} \right)^{x}\delta(0)$.
+				\item We suppose that $q \neq p$ 
+					\begin{enumerate}[i.]
+						\item Show that $\delta(0)=\frac{\frac{q}{p}-1}{\left( \frac{q}{p} \right)^{l}-1}$
+						\item Using the previous parts show that $\phi(x,l)=\frac{\left( \frac{q}{p} \right)^{x}-1}{\left( \frac{q}{p	} \right)^{l}-1}$
+					\end{enumerate}
+				\item We suppose that $p=q$. Show that in this case $\delta(0)=1/l$ and that $\phi(x,l)=x/l$.
+			\end{enumerate}
+		\item Deduce the equation (1).
+		\item Let $x > 0$. Observing that $\mathbb{P}_{x}(\tau_{0} < + \infty)= \lim_{l\to+\infty}\mathbb{P}_{x}(\tau_{0} < \tau_{l})$, show that \begin{equation}
+			\mathbb{P}_{x}(\tau_{0} < +\infty) = \begin{cases}
+				(q/p){x}, & \text{if } p > 1/2, \\[4pt]
+				1, & \text{if } p \leq 1/2.
+			\end{cases}
+		\end{equation}
+	\end{enumerate}
+
+\end{document}
