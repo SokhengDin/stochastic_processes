@@ -199,7 +199,7 @@ $$
 			
 			Thus
 			\begin{equation*}
-				\boxed{X_1 \text{ and } X_2 \text{ are } not \varepsilon\text{-measurable.}}
+				\boxed{X_1 \text{ and } X_2 \text{ are not } \varepsilon\text{-measurable.}}
 			\end{equation*}
 			
 	\end{enumerate}
@@ -208,7 +208,7 @@ $$
 	By definition 
 	
 	\begin{equation*}
-		\sigma(X_{1}) = \{ X_{1}^{-1}(B): B \in \mathbb{R} Borel law \}
+		\sigma(X_{1}) = \{ X_{1}^{-1}(B): B \in \mathbb{R} \quad \text{Borel Law} \}
 	\end{equation*}
 	
 	\begin{itemize}
@@ -225,7 +225,7 @@ $$
 			X_{2}^{-1}(\{ 2 \}) &= \{ HH \}
 		\end{align*}
 		Thus \begin{equation*}
-			\sigma(X_{1})=\{ \emptyset, \Omega, \{ HH, HT \}, \{ TT, TH \}, \{ HH, HT, TH \}, \{ HH, TT \}, \{ HT, TH, TT \} \}
+			\sigma(X_{2})=\{ \emptyset, \Omega, \{TT\}, \{HT,TH\}, \{HH\}, \{ TT, HT, TH\}, \{ TT, HH\}, \{HT, TH, HH\} \}
 		\end{equation*}
 		
 		\item For $\sigma(X_{1},X_{2})$, 
@@ -298,7 +298,7 @@ Each $\mathcal{G}_k$ corresponds to knowing only the $k$-th toss:
     \item $\mathcal{G}_3$ contains the information ``is the third toss H or T?''
 \end{itemize}
 
-\item Are $Y_k$ $\mathcal{G}_k$-measurable? \\[0.2em]
+\item Are $Y_k$ is $\mathcal{G}_k$-measurable? \\[0.2em]
 Since
 $$
 Y_k^{-1}(\{1\})=\{\omega:\text{$k$-th toss = H}\}, \qquad
@@ -309,7 +309,7 @@ $$
 \boxed{Y_k \text{ is } \mathcal{G}_k\text{-measurable.}}
 $$
 
-\item Are $X_k$ $\mathcal{G}_k$-measurable?
+\item Are $X_k$ is $\mathcal{G}_k$-measurable?
 \begin{itemize}
     \item For $X_1$:
     $$
@@ -338,7 +338,7 @@ X_1\in\mathcal{G}_1,\qquad X_2\notin\mathcal{G}_2,\qquad X_3\notin\mathcal{G}_3.
 }
 $$
 
-\item Are $Y_k$ $\mathcal{F}_k$-measurable?
+\item Are $Y_k$ is $\mathcal{F}_k$-measurable?
 \begin{itemize}
     \item $\mathcal{F}_1=\mathcal{G}_1$ contains $Y_1$.
     \item $\mathcal{F}_2$ contains the information of both tosses 1 and 2, so it contains $Y_1,Y_2$.
@@ -437,10 +437,7 @@ $$
 Since $X_1=Y_1$ and $X_2=Y_1+Y_2$, we distinguish the three possible values of $X_2$.
 
 \begin{itemize}
-    \item If $X_2=2$, then $(Y_1,Y_2)=(1,1)$, hence
-    $$
-    \mathbb{E}(X_1\mid X_2=2)=1.
-    $$
+    
 
     \item If $X_2=0$, then $(Y_1,Y_2)=(0,0)$, hence
     $$
@@ -449,15 +446,103 @@ Since $X_1=Y_1$ and $X_2=Y_1+Y_2$, we distinguish the three possible values of $
 
     \item If $X_2=1$, the pairs $(1,0)$ and $(0,1)$ occur with equal probability (by independence):
     $$
-    \mathbb{P}(Y_1=1\mid X_2=1)=\frac{1}{2}.
+    \mathbb{P}(Y_1=1\mid X_2=1)=\frac{1}{2}
     $$
-    Therefore
+    
+    \item If $X_2=2$, then $(Y_1,Y_2)=(1,1)$, hence
     $$
-    \mathbb{E}(X_1\mid X_2=1)=\frac{1}{2}.
+    \mathbb{E}(X_1\mid X_2=2)=1.
     $$
+
 \end{itemize}
 
 Hence,
+$$
+\boxed{
+\mathbb{E}(X_1\mid X_2)=
+\begin{cases}
+1, & X_2=2,\\[0.2em]
+\frac12, & X_2=1,\\[0.2em]
+0, & X_2=0.
+\end{cases}}
+$$
+
+\medskip
+Also we can do
+By Definition 1.5.1 for discrete random variables, for any value $x$ of $X_2$ we have
+$$
+\mathbb{E}(X_1\mid X_2=x)
+=
+\sum_{a} a\,
+\mathbb{P}(X_1=a \mid X_2=x)
+=
+\frac{\displaystyle\sum_{a} a\,\mathbb{P}(X_1=a,X_2=x)}{\mathbb{P}(X_2=x)}.
+$$
+
+Here $X_1\in\{0,1\}$ and $X_2\in\{0,1,2\}$. Let $p=\mathbb{P}(H)$ and $q=1-p$.
+We use that the first two tosses are independent Bernoulli($p$).
+
+\begin{itemize}
+
+    \item \textbf{Case $X_2=0$.} \\
+    Then the only possible pair is $(Y_1,Y_2)=(0,0)$ (outcome $TT$), so
+    $$
+    \mathbb{P}(X_2=0)=\mathbb{P}(TT)=q^2,
+    $$
+    and necessarily $X_1=0$. Hence
+    $$
+    \mathbb{E}(X_1\mid X_2=0)
+    =
+    \frac{0\cdot\mathbb{P}(X_1=0,X_2=0)}{\mathbb{P}(X_2=0)}
+    =0.
+    $$
+
+    \item \textbf{Case $X_2=1$.} \\
+    Now $X_2=1$ corresponds to exactly one head in the first two tosses: outcomes $HT$ or $TH$.
+    \begin{align*}
+    \mathbb{P}(HT) &= p q, \\
+    \mathbb{P}(TH) &= q p.
+    \end{align*}
+    Therefore
+    $$
+    \mathbb{P}(X_2=1)=\mathbb{P}(HT)+\mathbb{P}(TH)=2pq.
+    $$
+    On $HT$ we have $(X_1,X_2)=(1,1)$; on $TH$ we have $(X_1,X_2)=(0,1)$.
+    Thus
+    $$
+    \mathbb{P}(X_1=1,X_2=1)=\mathbb{P}(HT)=pq,\qquad
+    \mathbb{P}(X_1=0,X_2=1)=\mathbb{P}(TH)=pq.
+    $$ 
+   
+    Hence, by the discrete conditional expectation formula,
+    $$
+    \mathbb{E}(X_1\mid X_2=1)
+    =
+    \frac{1\cdot\mathbb{P}(X_1=1,X_2=1)+0\cdot\mathbb{P}(X_1=0,X_2=1)}
+         {\mathbb{P}(X_2=1)}
+    =
+    \frac{pq}{2pq}
+    =\frac12.
+    $$
+    
+    \item \textbf{Case $X_2=2$.} \\
+    Then the only possible pair is $(Y_1,Y_2)=(1,1)$ (i.e.\ outcome $HH$), so
+    $$
+    \mathbb{P}(X_2=2)=\mathbb{P}(HH)=p^2,
+    $$
+    and necessarily $X_1=1$. Thus
+    $$
+    \mathbb{E}(X_1\mid X_2=2)
+    =
+    \frac{1\cdot\mathbb{P}(X_1=1,X_2=2)}{\mathbb{P}(X_2=2)}
+    =
+    \frac{1\cdot p^2}{p^2}
+    =1.
+    $$
+
+\end{itemize}
+
+So again we obtain
 $$
 \boxed{
 \mathbb{E}(X_1\mid X_2)=
@@ -472,7 +557,7 @@ $$
 
 \end{solenum}
 \end{solutionbox}	
-
+\newpage
 	
 \section*{Exercise 3} (Application of the course)
 \begin{enumerate}[1.]
@@ -484,6 +569,169 @@ $$
 			\item What is $\mathbb{E}(X|\mathcal{F})$ ? if $X$ is independent from $\mathcal{F}$.
 		\end{enumerate}
 \end{enumerate}
+
+\begin{solutionbox}
+\begin{solenum}
+
+	\item We show that one always has $\sigma(f(X)) \subset \sigma(X)$.	
+		We know that 
+		\[
+		X : (\Omega,\mathcal F) \to (E,\mathcal E), 
+		\qquad 
+		f : (E,\mathcal E) \to (\mathbb R,\mathcal B(\mathbb R)),
+		\]
+		and $f$ is $\mathcal E / \mathcal B(\mathbb R)$–measurable.
+		
+		Recall the definition (see Definition 1.4.4 of the course):  
+		\[
+		\sigma(X) = \{X^{-1}(A) : A \in \mathcal E\} \subset \mathcal F,
+		\]
+		and similarly
+		\[
+		\sigma(f(X)) = \{(f(X))^{-1}(B) : B \in \mathcal B(\mathbb R)\} \subset \mathcal F.
+		\]
+		
+		Now let $B \in \mathcal B(\mathbb R)$.  
+		Since $f$ is measurable, we have
+		\[
+		f^{-1}(B) \in \mathcal E.
+		\]
+		Then
+		\[
+		(f(X))^{-1}(B)
+		= X^{-1}(f^{-1}(B)).
+		\]
+		
+		Because $f^{-1}(B) \in \mathcal E$, we get  
+		\[
+		X^{-1}(f^{-1}(B)) \in \sigma(X).
+		\]
+		
+		Thus every generator of $\sigma(f(X))$ belongs to $\sigma(X)$, and therefore
+		\[
+		\boxed{\sigma(f(X)) \subset \sigma(X)}.
+		\]
+		
+		This means that $f(X)$ contains less information than $X$:  
+		to know $f(X)$ it is enough to know $X$, but not necessarily the opposite.
+
+	 \item Is $\mathcal{F} \cap \mathcal{G}$ and $\mathcal{F} \cup \mathcal{G}$ always a $\sigma$-algebra?
+
+		\medskip
+		
+		\textbf{Intersection.} \\
+		Let $\mathcal{F}$ and $\mathcal{G}$ be two $\sigma$-algebras on $\Omega$.
+		We show that $\mathcal{F} \cap \mathcal{G}$ is again a $\sigma$-algebra.
+		
+		\begin{itemize}
+		  \item Since $\emptyset,\Omega \in \mathcal{F}$ and $\emptyset,\Omega \in \mathcal{G}$, we have
+		  \[
+		    \emptyset,\Omega \in \mathcal{F} \cap \mathcal{G}.
+		  \]
+		  \item If $A \in \mathcal{F} \cap \mathcal{G}$, then $A \in \mathcal{F}$ and $A \in \mathcal{G}$.
+		  As $\mathcal{F}$ and $\mathcal{G}$ are $\sigma$-algebras, $A^c \in \mathcal{F}$ and $A^c \in \mathcal{G}$,
+		  hence $A^c \in \mathcal{F} \cap \mathcal{G}$.
+		  \item If $(A_n)_{n \ge 1} \subset \mathcal{F} \cap \mathcal{G}$, then each $A_n \in \mathcal{F}$ and $A_n \in \mathcal{G}$.
+		  Since both $\mathcal{F}$ and $\mathcal{G}$ are $\sigma$-algebras,
+		  \[
+		    \bigcup_{n \ge 1} A_n \in \mathcal{F}
+		    \quad\text{and}\quad
+		    \bigcup_{n \ge 1} A_n \in \mathcal{G},
+		  \]
+		  so $\bigcup_{n \ge 1} A_n \in \mathcal{F} \cap \mathcal{G}$.
+		\end{itemize}
+		
+		Thus $\mathcal{F} \cap \mathcal{G}$ satisfies the three axioms of a $\sigma$-algebra, and we conclude
+		\[
+		  \boxed{\mathcal{F} \cap \mathcal{G} \text{ is always a $\sigma$-algebra.}}
+		\]
+		
+		\medskip
+		
+		\textbf{Union.} \\
+		In general, $\mathcal{F} \cup \mathcal{G}$ is \emph{not} a $\sigma$-algebra.
+		
+		Consider the example of a die roll with sample space
+		\[
+		\Omega = \{1,2,3,4,5,6\}.
+		\]
+		Define
+		\[
+		  \mathcal{F} = \{\emptyset, \Omega, \{1\}, \{2,3,4,5,6\}\}, \qquad
+		  \mathcal{G} = \{\emptyset, \Omega, \{6\}, \{1,2,3,4,5\}\}.
+		\]
+		
+		Then
+		\[
+		  \mathcal{F} \cup \mathcal{G}
+		  = \{\emptyset, \Omega, \{1\}, \{6\}, \{2,3,4,5,6\}, \{1,2,3,4,5\}\}.
+		\]
+		
+		Note that $\{1\} \in \mathcal{F} \cup \mathcal{G}$ and $\{6\} \in \mathcal{F} \cup \mathcal{G}$, but
+		\[
+		  \{1\} \cup \{6\} = \{1,6\} \notin \mathcal{F} \cup \mathcal{G}.
+		\]
+		
+		So $\mathcal{F} \cup \mathcal{G}$ is not closed under finite (hence not under countable) unions, and therefore it is not a $\sigma$-algebra.
+		
+		Thus, in general,
+		\[
+		  \boxed{\mathcal{F} \cup \mathcal{G} \text{ is not necessarily a $\sigma$-algebra.}}
+		\]
+
+	\item $E[X \mid \mathcal{F}]$ if $\mathcal{F} = \{\emptyset,\Omega\}$ and if $\mathcal{F} = \mathcal{P}(\Omega)$.
+
+		By definition, a random variable $Y$ is a version of $E[X \mid \mathcal{F}]$ if
+		
+		\begin{itemize}
+		  \item $Y$ is $\mathcal{F}$-measurable,
+		  \item for all $A \in \mathcal{F}$,
+		  \[
+		    \int_A Y \, d\mathbb{P} = \int_A X \, d\mathbb{P}.
+		  \]
+		\end{itemize}
+		
+		For $\mathcal{F} = \{\emptyset,\Omega\}$ (trivial $\sigma$-algebra)
+		
+		An $\mathcal{F}$-measurable random variable must be \emph{constant} a.s., say $Y(\omega) \equiv c$.
+		Then, for $A = \Omega$,
+		\[
+		\int_\Omega Y \, d\mathbb{P}
+		= \int_\Omega c \, d\mathbb{P}
+		= c
+		\]
+		and by the defining property of the conditional expectation,
+		\[
+		\int_\Omega Y \, d\mathbb{P}
+		= \int_\Omega X \, d\mathbb{P}
+		= \mathbb{E}[X].
+		\]
+		Hence $c = \mathbb{E}[X]$, so
+		\[
+		\boxed{E[X \mid \{\emptyset,\Omega\}] = \mathbb{E}[X].}
+		\]
+		
+		\medskip
+		
+		For $\mathcal{F} = \mathcal{P}(\Omega)$ (full $\sigma$-algebra)
+		
+		Here every random variable $X$ is $\mathcal{F}$-measurable, since $\mathcal{F}$ contains \emph{all} subsets of $\Omega$.
+		
+		Consider $Y := X$. Then $Y$ is $\mathcal{F}$-measurable, and for every $A \in \mathcal{F} = \mathcal{P}(\Omega)$,
+		\[
+		\int_A Y \, d\mathbb{P}
+		= \int_A X \, d\mathbb{P}.
+		\]
+		So $Y$ satisfies the defining property of $E[X \mid \mathcal{F}]$.
+		
+		By uniqueness (up to a.s. equality) of conditional expectation, we obtain
+		\[
+		\boxed{E[X \mid \mathcal{P}(\Omega)] = X.}
+		\]
+
+\end{solenum}	
+\end{solutionbox}
+
 
 \section*{Exercise 4}
 We flip three times a coin which probability of having Heads is $p\in ]0,1[$ and we record the successive sides that appear. 
@@ -512,17 +760,194 @@ Let $X$ be a random variable defined on $(\Omega, \mathcal{F})$ and let $\mathbb
 		Var(X) = \mathbb{E}\left( Var(X|\mathscr{P}) \right) + Var(X\mathbb{E}(X|\mathscr{P})).
 	\end{equation*}
 
+\begin{solutionbox}
+	Show that 
+	\[
+	\operatorname{Var}(X) 
+	= \mathbb{E}\big( \operatorname{Var}(X\mid\mathscr{P}) \big) 
+	+ \operatorname{Var}\big(\mathbb{E}(X\mid\mathscr{P})\big),
+	\]
+	where $\mathscr{P}$ is a sub-$\sigma$-algebra of $\mathcal{F}$.
+	
+	Starting from
+	\[
+	X - \mathbb{E}[X] 
+	= X - \mathbb{E}[X\mid\mathscr{P}] 
+	  + \mathbb{E}[X\mid\mathscr{P}] - \mathbb{E}[X].
+	\]
+	Let
+	\[
+	A := X - \mathbb{E}[X\mid\mathscr{P}], 
+	\qquad 
+	B := \mathbb{E}[X\mid\mathscr{P}] - \mathbb{E}[X].
+	\]
+	Then $X - \mathbb{E}[X] = A + B$ and
+	\[
+	\operatorname{Var}(X) 
+	= \mathbb{E}\big[(X-\mathbb{E}[X])^{2}\big]
+	= \mathbb{E}\big[(A+B)^{2}\big]
+	= \mathbb{E}[A^{2}] + 2\mathbb{E}[AB] + \mathbb{E}[B^{2}].
+	\]
+	
+	By definition of conditional variance,
+	\[
+	\operatorname{Var}(X\mid\mathscr{P})
+	= \mathbb{E}\big[(X-\mathbb{E}[X\mid\mathscr{P}])^{2}\mid\mathscr{P}\big]
+	= \mathbb{E}[A^{2}\mid\mathscr{P}].
+	\]
+	Taking expectations and using the tower property,
+	\[
+	\mathbb{E}\big(\operatorname{Var}(X\mid\mathscr{P})\big)
+	= \mathbb{E}\big( \mathbb{E}[A^{2}\mid\mathscr{P}] \big)
+	= \mathbb{E}[A^{2}].
+	\]
+	
+	Next, we show that $\mathbb{E}[AB]=0$. Using conditional expectation,
+	\[
+	\mathbb{E}[AB]
+	= \mathbb{E}\big( \mathbb{E}[AB \mid \mathscr{P}] \big).
+	\]
+	Since $B$ is $\mathscr{P}$-measurable, we can take it outside:
+	\[
+	\mathbb{E}[AB \mid \mathscr{P}]
+	= B \, \mathbb{E}[A \mid \mathscr{P}].
+	\]
+	But
+	\[
+	\mathbb{E}[A \mid \mathscr{P}]
+	= \mathbb{E}\big[X - \mathbb{E}[X\mid\mathscr{P}] \,\big|\, \mathscr{P}\big]
+	= \mathbb{E}[X\mid\mathscr{P}] - \mathbb{E}[X\mid\mathscr{P}]
+	= 0.
+	\]
+	Hence $\mathbb{E}[AB\mid\mathscr{P}] = B \cdot 0 = 0$, and therefore
+	\[
+	\mathbb{E}[AB] = \mathbb{E}\big(\mathbb{E}[AB\mid\mathscr{P}]\big) = 0.
+	\]
+	
+	We now identify $\mathbb{E}[B^{2}]$. Note that
+	\[
+	B = \mathbb{E}[X\mid\mathscr{P}] - \mathbb{E}[X],
+	\]
+	so $B$ is exactly the centered version of $\mathbb{E}[X\mid\mathscr{P}]$. Moreover,
+	\[
+	\mathbb{E}[B]
+	= \mathbb{E}\big(\mathbb{E}[X\mid\mathscr{P}]\big) - \mathbb{E}[X]
+	= \mathbb{E}[X] - \mathbb{E}[X]
+	= 0
+	\]
+	by the law of total expectation. Thus,
+	\[
+	\mathbb{E}[B^{2}]
+	= \operatorname{Var}\big(\mathbb{E}(X\mid\mathscr{P})\big).
+	\]
+	
+	Hence,
+	$$
+	\boxed{
+	\operatorname{Var}(X)
+	= \mathbb{E}[A^{2}] + 2\mathbb{E}[AB] + \mathbb{E}[B^{2}]
+	= \mathbb{E}\big(\operatorname{Var}(X\mid\mathscr{P})\big) 
+	  + \operatorname{Var}\big(\mathbb{E}(X\mid\mathscr{P})\big).
+	 }
+	$$
+\end{solutionbox}
+
+
 
 \section*{Exercise 6}
-We toss $n$ times a coin and consider a gambling which consists on scoring 1 point when Heads appears or losing 2 points otherwise. The probability of having Heads with the coin is $p$. Let $Y_{i}$ be the random variable representing the scored point on the $i$-th toss only and let $X_{n}$ be the cumulated scored point after the $n$ first tosses with $X_{0}$ Let $(\mathcal{F}_{n})_{n\geq{0}}$ with $\mathcal{F}_{n}=\sigma(Y_{1}, \cdots, Y_{n})$ be the natural filtration of the process $(Y_{n})_{n \geq{1}}$.
+We toss $n$ times a coin and consider a gambling which consis	ts on scoring 1 point when Heads appears or losing 2 points otherwise. The probability of having Heads with the coin is $p$. Let $Y_{i}$ be the random variable representing the scored point on the $i$-th toss only and let $X_{n}$ be the cumulated scored point after the $n$ first tosses with $X_{0}$ Let $(\mathcal{F}_{n})_{n\geq{0}}$ with $\mathcal{F}_{n}=\sigma(Y_{1}, \cdots, Y_{n})$ be the natural filtration of the process $(Y_{n})_{n \geq{1}}$.
 	
 	\begin{enumerate}[1.]
 		\item Write $X_{n}$ as a function of $Y_{1}, \cdots , Y_{n}$.
 		\item Determine the value of $p$ which makes the process $(X_{n})_{n \geq{0}}$ a $\mathcal{F}_{n}$ martingale.
 		\item Determine the value of $p$ which makes the process $(X_{n})_{n \geq{0}}$ a $\mathcal{F}_{n}$ sur-martingale.
 		\item Determine the value of $p$ which makes the process $(X_{n})_{n \geq{0}}$ a $\mathcal{F}_{n}$ sub-martingale.
-
 	\end{enumerate}
+
+\begin{solutionbox}
+\begin{solenum}
+  \item We toss the coin $n$ times. For each toss $k \geq 1$ we define the \emph{score} at time $k$ by
+  \[
+    Y_k =
+    \begin{cases}
+      1,  & \text{if the $k$-th toss is Head},\\[4pt]
+     -2, & \text{if the $k$-th toss is Tail}.
+    \end{cases}
+  \]
+  Let $(\mathcal{F}_n)_{n\ge 0}$ be the natural filtration,
+  \[
+    \mathcal{F}_n = \sigma(Y_1,\dots,Y_n), \quad \mathcal{F}_0 = \{\emptyset,\Omega\}.
+  \]
+  The total gain after $n$ tosses is
+  \[
+    X_n = Y_1 + \cdots + Y_n = \sum_{k=1}^n Y_k,
+  \]
+  which is clearly $\mathcal{F}_n$-measurable.
+
+  \item We look for $p$ such that $(X_n)_{n\ge 0}$ is an $(\mathcal{F}_n)$-martingale, i.e.
+  \[
+    \mathbb{E}[X_{n+1}\mid\mathcal{F}_n] = X_n \quad \text{a.s.}
+  \]
+  We write $X_{n+1} = X_n + Y_{n+1}$, hence
+  \[
+    \mathbb{E}[X_{n+1}\mid\mathcal{F}_n]
+    = \mathbb{E}[X_n + Y_{n+1}\mid\mathcal{F}_n]
+    = X_n + \mathbb{E}[Y_{n+1}\mid\mathcal{F}_n].
+  \]
+  Since $Y_{n+1}$ is independent of $\mathcal{F}_n = \sigma(Y_1,\dots,Y_n)$ (independent tosses),
+  \[
+    \mathbb{E}[Y_{n+1}\mid\mathcal{F}_n] = \mathbb{E}[Y_{n+1}] = \mathbb{E}[Y_1].
+  \]
+  Now
+  \[
+    \mathbb{E}[Y_1] = 1\cdot p + (-2)\cdot(1-p) = p - 2 + 2p = 3p - 2.
+  \]
+  Therefore
+  \[
+    \mathbb{E}[X_{n+1}\mid\mathcal{F}_n]
+    = X_n + (3p - 2).
+  \]
+  For the martingale property we need
+  \[
+    X_n + (3p - 2) = X_n \quad\Rightarrow\quad 3p - 2 = 0 \quad\Rightarrow\quad p = \frac{2}{3}.
+  \]
+  Hence $(X_n)$ is a martingale iff $p = \dfrac{2}{3}$.
+
+  \item $(X_n)$ is a super-martingale if
+  \[
+    \mathbb{E}[X_{n+1}\mid\mathcal{F}_n] \le X_n.
+  \]
+  From above,
+  \[
+    \mathbb{E}[X_{n+1}\mid\mathcal{F}_n] = X_n + (3p - 2),
+  \]
+  so the condition becomes
+  \[
+    X_n + (3p - 2) \le X_n
+    \quad\Longleftrightarrow\quad 3p - 2 \le 0
+    \quad\Longleftrightarrow\quad p \le \frac{2}{3}.
+  \]
+  Thus $(X_n)$ is an $(\mathcal{F}_n)$-super-martingale iff $p \le \dfrac{2}{3}$.
+
+  \item $(X_n)$ is a sub-martingale if
+  \[
+    \mathbb{E}[X_{n+1}\mid\mathcal{F}_n] \ge X_n.
+  \]
+  Using again
+  \[
+    \mathbb{E}[X_{n+1}\mid\mathcal{F}_n] = X_n + (3p - 2),
+  \]
+  we get
+  \[
+    X_n + (3p - 2) \ge X_n
+    \quad\Longleftrightarrow\quad 3p - 2 \ge 0
+    \quad\Longleftrightarrow\quad p \ge \frac{2}{3}.
+  \]
+  Thus $(X_n)$ is an $(\mathcal{F}_n)$-sub-martingale iff $p \ge \dfrac{2}{3}$.
+\end{solenum}
+\end{solutionbox}
+
+
 
 \section*{Exercise 7}
 Let $(Y_{n})_{n \geq{1}}$ be a sequence of independent random variables with the same distribution $\mathcal{N}(0,\,\sigma^{2})$ where $\sigma > 0$. Set $\mathscr{F}_{n}=\sigma(Y_{1}, \cdots, Y_{n})$ and $X_{n} = Y_{1} + \cdots + Y_{n}$.
@@ -535,6 +960,135 @@ Let $(Y_{n})_{n \geq{1}}$ be a sequence of independent random variables with the
 		\item Let $Z_{n}^{u}=\exp\left( uX_{n} - n\frac{u^{2}\sigma^{2}}{2} \right)$. Show that , for any $u \in \mathbb{R}, (Z_{n}^{u})_{n \geq{1}}$ is an $\mathscr{F}$-martingale.
 		\item Show that for any $u\in{\mathbb{R}}, (Z_{n}^{u})_{n \geq{1}}$ converges almost surely toward a random variable $Z_{\infty}^{u}$ which is finite.
 	\end{enumerate}
+
+\begin{solutionbox}
+\begin{solenum}
+  \item Show that $\mathbb{E}(e^{uY_1}) = e^{\frac{u^{2}\sigma^{2}}{2}}$.
+
+  We know that $(Y_n)_{n\ge 1}$ is a sequence of independent random variables with
+  \[
+    Y_k \sim \mathcal{N}(0,\sigma^2),\quad k\ge 1.
+  \]
+  In particular, $Y_1$ has density
+  \[
+    f(y) = \frac{1}{\sqrt{2\pi\sigma^2}}
+           \exp\!\left(-\frac{y^2}{2\sigma^2}\right), \qquad y\in\mathbb{R}.
+  \]
+  For $u \in \mathbb{R}$,
+  \[
+    \mathbb{E}\big[e^{uY_1}\big]
+    = \int_{\mathbb{R}} e^{uy} f(y)\,dy
+    = \int_{\mathbb{R}}
+      e^{uy}\,\frac{1}{\sqrt{2\pi\sigma^2}}
+      \exp\!\left(-\frac{y^2}{2\sigma^2}\right)\,dy.
+  \]
+  Combine equation
+  \[
+    uy - \frac{y^2}{2\sigma^2}
+    = -\frac{1}{2\sigma^2}\Bigl(y^2 - 2u\sigma^2 y\Bigr)
+    = -\frac{1}{2\sigma^2}\Bigl[(y-u\sigma^2)^2 - u^2\sigma^4\Bigr]
+    = -\frac{(y-u\sigma^2)^2}{2\sigma^2} + \frac{u^2\sigma^2}{2}.
+  \]
+  Hence
+  \begin{align*}
+  	\mathbb{E}(e^{uY_1})
+    &= \int_{\mathbb{R}}
+      \frac{1}{\sqrt{2\pi\sigma^2}}
+      \exp\!\left(-\frac{(y-u\sigma^2)^2}{2\sigma^2}
+                 + \frac{u^2\sigma^2}{2}\right)\,dy \\
+    &= e^{\frac{u^2\sigma^2}{2}}
+      \int_{\mathbb{R}}
+      \frac{1}{\sqrt{2\pi\sigma^2}}
+      \exp\!\left(-\frac{(y-u\sigma^2)^2}{2\sigma^2}\right)\,dy.
+  \end{align*}
+    
+  The integral is $1$ (density of $\mathcal{N}(u\sigma^2,\sigma^2)$). \newpage Therefore
+  \[
+    \boxed{\mathbb{E}(e^{uY_1}) = e^{\frac{u^2\sigma^2}{2}}.}
+  \]
+
+  \item Let $Z_n^u = \exp\!\left(uX_n - \frac{n u^2\sigma^2}{2}\right)$.
+  Show that $(Z_n^u)_{n\ge 1}$ is an $(\mathcal{F}_n)$-martingale, where
+  $\mathcal{F}_n = \sigma(Y_1,\dots,Y_n)$ and $X_n = Y_1 + \cdots + Y_n$.
+
+  For $n\ge 1$,
+  \[
+    X_{n+1} = X_n + Y_{n+1},
+  \]
+  hence
+  \begin{align*}
+  	Z_{n+1}^u
+    &= \exp\!\left(uX_{n+1} - \frac{(n+1)u^2\sigma^2}{2}\right)
+    = \exp\!\left(uX_n - \frac{n u^2\sigma^2}{2}\right)
+      \exp\!\left(uY_{n+1} - \frac{u^2\sigma^2}{2}\right) \\
+    &= Z_n^u \cdot \exp\!\left(uY_{n+1} - \frac{u^2\sigma^2}{2}\right).
+  \end{align*}
+  Taking conditional expectation w.r.t. $\mathcal{F}_n$,
+  \[
+    \mathbb{E}(Z_{n+1}^u \mid \mathcal{F}_n)
+    = Z_n^u \, \mathbb{E}\!\left(
+        \exp\!\left(uY_{n+1} - \frac{u^2\sigma^2}{2}\right)
+        \Bigm|\mathcal{F}_n
+      \right).
+  \]
+  Since $Y_{n+1}$ is independent of $\mathcal{F}_n$,
+  \[
+    \mathbb{E}\!\left(
+      \exp\!\left(uY_{n+1} - \frac{u^2\sigma^2}{2}\right)
+      \Bigm|\mathcal{F}_n
+    \right)
+    = \mathbb{E}\!\left(
+      \exp\!\left(uY_{n+1} - \frac{u^2\sigma^2}{2}\right)
+    \right)
+    = e^{-\frac{u^2\sigma^2}{2}}\,\mathbb{E}(e^{uY_{n+1}}).
+  \]
+  Using sol 1
+  \[
+    \mathbb{E}(e^{uY_{n+1}}) = e^{\frac{u^2\sigma^2}{2}},
+  \]
+  so the factor is
+  \[
+    e^{-\frac{u^2\sigma^2}{2}} \cdot e^{\frac{u^2\sigma^2}{2}} = 1.
+  \]
+  Hence
+  \[
+    \mathbb{E}(Z_{n+1}^u \mid \mathcal{F}_n) = Z_n^u.
+  \]
+  Moreover, $Z_n^u$ is $\mathcal{F}_n$-measurable and nonnegative, so
+  \[
+    \boxed{(Z_n^u)_{n\ge 1} \text{ is an } (\mathcal{F}_n)\text{-martingale}.}
+  \]
+
+  \item Show that for any $u\in\mathbb{R}$, $(Z_n^u)_{n\ge 1}$ converges almost surely
+  toward a finite random variable $Z_\infty^u$.
+
+  First, from sol 2: $(Z_n^u)$ is a nonnegative martingale. Also,
+  \[
+    \mathbb{E}(Z_n^u)
+    = \mathbb{E}\!\left(
+      \exp\!\left(
+        uX_n - \frac{n u^2\sigma^2}{2}
+      \right)
+    \right)
+    = \Big(\mathbb{E}(e^{uY_1})\Big)^n\, e^{-\frac{n u^2\sigma^2}{2}}
+    = \big(e^{\frac{u^2\sigma^2}{2}}\big)^n e^{-\frac{n u^2\sigma^2}{2}} = 1,
+  \]
+  so $\sup_n \mathbb{E}(Z_n^u) = 1 < +\infty$.
+
+  By Doob's martingale convergence theorem for nonnegative (sub-)martingales,
+  there exists an a.s. finite random variable $Z_\infty^u$ such that
+  \[
+    Z_n^u \xrightarrow[n\to\infty]{\text{a.s.}} Z_\infty^u.
+  \]
+  Therefore
+  \[
+    \boxed{Z_n^u \to Z_\infty^u \text{ almost surely, with } 0 \le Z_\infty^u < \infty \text{ a.s.}}
+  \]
+
+\end{solenum}
+\end{solutionbox}
+
+
 
 \section*{Exercise 8}
 Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space and let $(X_{k})_{k=0,\ldots,n}$ be a sequence of random variables. Let $(\mathcal{G}_k)_{k=0,\ldots,n}$ be the filtration generated by the process $(Y_k)_{k=1,\ldots,n}$ with $\mathcal{G}_{0}=\{\emptyset, \Omega\}$ and let $\bar{\mathbb{P}}$ be the new probability defined as 
